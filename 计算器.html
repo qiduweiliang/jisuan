@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		#text{
+			width: 200px;
+			height: 30px;
+			margin-left: 500px;
+		}
+		div{
+			margin-left: 500px;
+		}
+		.num,.signs,#jisuan,#qingchu{
+			width: 50px;
+			height: 50px;
+			margin:5px 5px;
+		}
+	</style>
+</head>
+<body>
+	<input type="text" id="text">
+	<div id="number">
+		<input type="button" class="num" value="1">
+		<input type="button" class="num" value="2">
+		<input type="button" class="num" value="3">
+		<br><input type="button" class="num" value="4">
+		<input type="button" class="num" value="5">
+		<input type="button" class="num" value="6">
+		<br><input type="button" class="num" value="7">
+		<input type="button" class="num" value="8">
+		<input type="button" class="num" value="9">
+		<input type="button" class="num" value="0">
+	</div>
+	<div id="sign">
+		<input type="button" class="signs" value="+">
+		<input type="button" class="signs" value="-">
+		<input type="button" class="signs" value="*">
+		<input type="button" class="signs" value="/">
+		<input type="button" value="=" id="jisuan">
+		<input type="button" value="C" id="qingchu">
+	</div>
+	<script src="JS/jquery-1.10.2.js"></script>
+	<script>
+		var num1 = "";
+		var num2 = "";
+		var sign = "";
+		var res = ""
+		function G(sID){
+			return document.getElementById(sID);
+		}
+		var numArr = G('number').getElementsByTagName('input')
+		for(var i in numArr){
+			numArr[i].onclick = function(){
+				var num = this.value;
+				if(sign==""){
+					//var num = $(this).val();
+					num1 = num1 + num;
+					G('text').value=num1;
+				}else{
+					//var num3 = $(this).val();
+					num2 = num2 + num;
+					G('text').value=num1+sign+num2;
+				}
+			}
+		}
+		var signArr = G('sign').getElementsByTagName('input');
+		for(var j in signArr){
+			signArr[j].onclick = function(){
+				if(num2 != ""){
+					switch(sign){
+						case'+':res = Number(num1)+Number(num2);break;
+						case'-':res = Number(num1)-Number(num2);break;
+						case'*':res = Number(num1)*Number(num2);break;
+						case'/':res = Number(num1)/Number(num2);break;
+					}
+					num1 = res;
+					num2 = "";
+				}
+				
+				sign = this.value;
+				G('text').value = num1 + sign;
+			}
+		}
+		G('jisuan').onclick = function(){
+			switch(sign){
+				case'+':res = Number(num1)+Number(num2);break;
+				case'-':res = Number(num1)-Number(num2);break;
+				case'*':res = Number(num1)*Number(num2);break;
+				case'/':res = Number(num1)/Number(num2);break;
+			}
+			num1 = res;
+			num2 = ""
+			G('text').value = res;
+		}
+		G('qingchu').onclick = function(){
+			num1 = "";
+			num2 = "";
+			sign = "";
+			G('text').value = "";
+		}
+		// $('.num').click(function(){
+		// 	var num = $(this).val();
+		// 	if(sign==""){
+		// 		//var num = $(this).val();
+		// 		num1 = num1 + num;
+		// 		$('#text').val(num1);
+		// 	}else{
+		// 		//var num3 = $(this).val();
+		// 		num2 = num2 + num;
+		// 		$('#text').val(num2);
+		// 	}
+		// })
+		// $('.sign').click(function(){
+		// 	sign = $(this).val();
+		// })
+		// $('.jisuan').click(function(){
+		// 	switch(sign){
+		// 		case'+':$('#text').val(Number(num1)+Number(num2));break;
+		// 		case'-':$('#text').val(Number(num1)-Number(num2));break;
+		// 		case'*':$('#text').val(Number(num1)*Number(num2));break;
+		// 		case'/':$('#text').val(Number(num1)/Number(num2));break;
+		// 	}
+		// })
+		// $('.qingchu').click(function(){
+		// 	num1 = "";
+		// 	num2 = "";
+		// 	sign = "";
+		// 	$('#text').val("");
+		// })
+	</script>
+</body>
+
+</html>
